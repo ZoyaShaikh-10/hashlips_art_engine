@@ -78,7 +78,9 @@ const background = {
   default: "#000000",
 };
 
-const extraMetadata = {};
+const extraMetadata = {
+  collections : {}
+};
 
 const rarityDelimiter = "#";
 
