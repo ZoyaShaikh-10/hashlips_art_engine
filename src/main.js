@@ -130,8 +130,17 @@ const drawBackground = () => {
 
 const addMetadata = (_dna, _edition) => {
   let dateTime = Date.now();
+  let count;
+  let x = _edition
+  for (
+    let i = 0; i <= x ; i++
+  ) {
+   count = i + 1
+  }
+  
+  //for ethereum
   let tempMetadata = {
-    name: `${namePrefix} #${_edition}`,
+    name: `${namePrefix}#${_edition}`,
     description: description,
     image: `${baseUri}/${_edition}.png`,
     dna: sha1(_dna),
@@ -141,20 +150,15 @@ const addMetadata = (_dna, _edition) => {
     attributes: attributesList,
     compiler: "HashLips Art Engine",
   };
+ 
+   //updated metadata for solana
   if (network == NETWORK.sol) {
     tempMetadata = {
       //Added metadata for solana
-      name: tempMetadata.name,
+      name: `${namePrefix}#${count}`,
       symbol: solanaMetadata.symbol,
-      description: tempMetadata.description,
-      //Added metadata for solana
-      seller_fee_basis_points: solanaMetadata.seller_fee_basis_points,
       image: `${_edition}.png`,
-      //Added metadata for solana
-      external_url: solanaMetadata.external_url,
-      edition: _edition,
-      ...extraMetadata,
-      attributes: tempMetadata.attributes,
+
       properties: {
         files: [
           {
@@ -165,6 +169,18 @@ const addMetadata = (_dna, _edition) => {
         category: "image",
         creators: solanaMetadata.creators,
       },
+
+
+
+      description: tempMetadata.description,
+      //Added metadata for solana
+      seller_fee_basis_points: solanaMetadata.seller_fee_basis_points,
+      //Added metadata for solana
+      // external_url: solanaMetadata.external_url,
+      edition: _edition,
+      
+      attributes: tempMetadata.attributes,
+      ...extraMetadata,
     };
   }
   metadataList.push(tempMetadata);
